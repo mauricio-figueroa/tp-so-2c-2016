@@ -1,0 +1,105 @@
+------------------------------------------------------------------------------------
+**********************************8POKEDEX-CLIENTE A POKEDEX-SERVIDOR: (enums en p_pokeDex.h)****************************8
+{}: se repite N veces
+
+
+1)ABRIR ARCHIVO:
+[tipo Mensaje] [tamanio path] [path]
+
+2)LEER ARCHIVO:
+[tipo Mensaje] [cant de bytes que se deben leer] [num de byte inicial] [tamanio path] [path]
+
+
+3)LEER DIRECTORIO
+Se entiende como archivo los archivos propiamente dichos o los directorios
+
+
+[tipo Mensaje] [Cant archivos] {[directory_element]}
+
+
+4)GET ATTR: Pide los atributos de un archivo o directorio
+[tipo Mensaje] [tamanio path] [path]
+
+--------------------------------------------------------------------------------------------
+
+
+*********************************POKEDEX-SERVIDOR A POKEDEX-CLIENTE**********************8
+
+
+
+1)GET ATTR:
+Usando el tipo de dato bool de stdbool.h se devuelve:
+true (1) si un archivo
+false (0) si es un directorio
+
+En caso de ser un archivo se tiene que mandar a continuacion el tamanio del archivo en uint32_t
+
+
+2)GET DIR
+Usado cuando el cliente pidio informacion de un directorio (archivos y directorios en ese directorio)
+{tipo mensaje} {cantidad de estructuras enviadas} {estructura: [char17][tipoArchivo]} {siguiente estructura}
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------
+*****************************************ENTRENADOR A MAPA***********************************
+
+1)Conocer ubicacion de pokeNest (tipoMensaje = 1 = CONOCER_POKENEST)
+[tipo Mensaje] [pokemon]
+
+pokemon es UN byte representando a UN CHAR
+
+
+2)Avanzar una posicion (tipo mensaje = 2 = MOVER_POSICION)
+[tipo Mensaje] [direccionMovimiento]
+
+direccionMovimiento es un enum (4 bytes) en el protocolo con los valores posibles de : IZQUIERDA,DERECHA,ABAJO,ARRIBA
+
+3)Atrapar Pokemon (tipo mensaje = 3 = CAPTURAR)
+[tipo Mensaje]
+
+
+4)Objetivos cumplidos (tipo mensaje = 4 = TERMINE_OBJETIVOS)
+[tipo Mensaje]
+
+*****************************************************************************************************
+
+-----------------------------------------------------------------------------------------------------------------------
+
+
+
+**************************************Mapa A Entrenador*******************************************
+
+1) Avisar al Entrenador que murio (tipo mensaje = 1 = MORITE)
+
+2)Ubicacion de pokenest (tipo mensaje = 2 = COORDENADA_POKENEST)
+[tipo Mensaje] [uint32_t posicion X] [uint32_t posicion Y]
+
+3) Avisarle al Entrenador que se bloqueo su proceso (tipo mensaje = 3 = ESTAS_BLOQUEADO)
+
+4) Avisar que esta en deadlock (tipo mensaje = 4 =  ESTAS_EN_DEADLOCK)
+
+5) Darle turno al Entrenador (tipo mensaje = 5 = TENES_TURNO)
+
+6)Pokemon capturado (tipo mensaje = 6 = CONFIRMACION_CAPTURA)
+[tipo mensaje] [pokemon]
+
+pokemon es un byte representando un char
+
+7)Posicion del entrenador modificada (tipo mensaje = 7 = MOVETE)
+[tipo mensaje] 
+
+8)Entregar medalla -cuando el entrenador notifica el fin de sus objetivos-  (tipo mensaje = 8 = DAR_MEDALLA)
+[tipo mensaje] [int32_t pathSize] [path]
+
+
+
+
+
+
+
+*******************************************************************************************************

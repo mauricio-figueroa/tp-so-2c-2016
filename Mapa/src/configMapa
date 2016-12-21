@@ -1,0 +1,5 @@
+quantum=3
+retardo=1500
+algoritmo=1
+tiempoChequeoDeadlock=1000
+Batalla=1
